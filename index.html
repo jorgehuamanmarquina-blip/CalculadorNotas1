@@ -1,150 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Calculadora de Notas</title>
-
+    <title>Gestor Académico</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
-
-    <div class="background"></div>
-
-    <header>
-
-        <h1>📚 Calculadora de Notas</h1>
-
-        <button id="nuevoCurso">
-            + Agregar Curso
-        </button>
-
-    </header>
-
-    <main id="contenedorCursos">
-
-    </main>
-
-    <template id="cursoTemplate">
-
-        <div class="curso">
-
-            <div class="cursoHeader">
-
-                <input
-                    class="nombreCurso"
-                    value="Nuevo Curso">
-
-                <button class="eliminarCurso">
-                    🗑
-                </button>
-
-            </div>
-
-            <div class="categorias">
-
-            </div>
-
-            <button class="agregarCategoria">
-
-                + Agregar Categoría
-
-            </button>
-
-            <div class="notaFinal">
-
-                Nota Final
-
-                <span>0.00</span>
-
-            </div>
-
-        </div>
-
-    </template>
-
-    <template id="categoriaTemplate">
-
-        <div class="categoria">
-
-            <div class="categoriaHeader">
-
-                <input
-                    class="nombreCategoria"
-                    value="Prácticas">
-
-                <input
-                    type="number"
-                    class="ponderacion"
-                    value="40"
-                    min="0"
-                    max="100">
-
-                <span>%</span>
-
-                <button class="eliminarCategoria">
-
-                    🗑
-
-                </button>
-
-            </div>
-
-            <div class="listaNotas">
-
-            </div>
-
-            <button class="agregarNota">
-
-                + Agregar Nota
-
-            </button>
-
-            <div class="promedioCategoria">
-
-                Promedio:
-
-                <span>0.00</span>
-
-            </div>
-
-        </div>
-
-    </template>
-
-    <template id="notaTemplate">
-
-        <div class="nota">
-
-            <input
-                class="nombreNota"
-                value="PC1">
-
-            <input
-                type="number"
-                class="valorNota"
-                placeholder="0-20"
-                min="0"
-                max="20">
-
-            <button class="eliminarNota">
-
-                ✖
-
-            </button>
-
-        </div>
-
-    </template>
-
+    <div class="container">
+        <h1>Gestor de Notas</h1>
+        <div id="cursos-container"></div>
+        <button onclick="agregarCurso()">+ Agregar Nuevo Curso</button>
+    </div>
     <script src="script.js"></script>
-
 </body>
-
 </html>
