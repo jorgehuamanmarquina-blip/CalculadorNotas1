@@ -1,89 +1,33 @@
-const nuevoCurso = document.getElementById("nuevoCurso");
-const contenedor = document.getElementById("contenedorCursos");
-
-nuevoCurso.addEventListener("click", crearCurso);
-
-function crearCurso() {
-
-    const curso = document
-        .getElementById("cursoTemplate")
-        .content
-        .cloneNode(true);
-
-    const tarjeta = curso.querySelector(".curso");
-
-    const btnAgregarCategoria = curso.querySelector(".agregarCategoria");
-    const btnEliminarCurso = curso.querySelector(".eliminarCurso");
-    const categorias = curso.querySelector(".categorias");
-
-    btnAgregarCategoria.addEventListener("click", () => {
-
-        crearCategoria(categorias);
-
+function calcularPromedio(cursoId) {
+    let total = 0;
+    let pesoTotal = 0;
+    const filas = document.querySelectorAll(`#curso-${cursoId} .nota-row`);
+    
+    filas.forEach(row => {
+        const nota = parseFloat(row.querySelector('.nota').value) || 0;
+        const peso = parseFloat(row.querySelector('.peso').value) || 0;
+        total += (nota * (peso / 100));
+        pesoTotal += peso;
     });
 
-    btnEliminarCurso.addEventListener("click", () => {
-
-        if(confirm("¿Eliminar este curso?")){
-
-            tarjeta.remove();
-
-        }
-
-    });
-
-    contenedor.appendChild(curso);
-
+    document.getElementById(`promedio-${cursoId}`).innerText = total.toFixed(2);
+    document.getElementById(`peso-total-${cursoId}`).innerText = pesoTotal + "%";
 }
 
-function crearCategoria(contenedorCategorias){
-
-    const categoria = document
-        .getElementById("categoriaTemplate")
-        .content
-        .cloneNode(true);
-
-    const tarjetaCategoria = categoria.querySelector(".categoria");
-
-    const listaNotas = categoria.querySelector(".listaNotas");
-
-    const agregarNota = categoria.querySelector(".agregarNota");
-
-    const eliminarCategoria = categoria.querySelector(".eliminarCategoria");
-
-    agregarNota.addEventListener("click",()=>{
-
-        crearNota(listaNotas);
-
-    });
-
-    eliminarCategoria.addEventListener("click",()=>{
-
-        tarjetaCategoria.remove();
-
-    });
-
-    contenedorCategorias.appendChild(categoria);
-
-}
-
-function crearNota(lista){
-
-    const nota = document
-        .getElementById("notaTemplate")
-        .content
-        .cloneNode(true);
-
-    const fila = nota.querySelector(".nota");
-
-    const eliminar = nota.querySelector(".eliminarNota");
-
-    eliminar.addEventListener("click",()=>{
-
-        fila.remove();
-
-    });
-
-    lista.appendChild(nota);
-
+function agregarCurso() {
+    const container = document.getElementById('cursos-container');
+    const id = Date.now();
+    container.innerHTML += `
+        <div id="curso-${id}" class="curso-box">
+            <input type="text" placeholder="Nombre del Curso">
+            <table>
+                <tr><th>Nota</th><th>Peso (%)</th></tr>
+                <tr class="nota-row">
+                    <td><input type="number" class="nota" oninput="calcularPromedio(${id})"></td>
+                    <td><input type="number" class="peso" oninput="calcularPromedio(${id})"></td>
+                </tr>
+            </table>
+            <p>Promedio: <span id="promedio-${id}">0</span> | Suma Peso: <span id="peso-total-${id}">0%</span></p>
+        </div>
+    `;
 }
